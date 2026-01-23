@@ -61,7 +61,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy
-    uses: paritytech/product-infrastructure/.github/workflows/deploy-frontend.yml@42b3964b01799b78acd46a49ebcfb14d4c30ffb0
+    uses: paritytech/product-infrastructure/.github/workflows/deploy-frontend.yml@main
     with:
       dotns-domain: ${{ github.event_name == 'push' && 'claude-certificate26.dot' || format('{0}-{1}00.dot', github.event.repository.name, github.event.pull_request.head.ref) }}
       artifact-name: frontend-build
