@@ -64,7 +64,7 @@ jobs:
     uses: ./.github/workflows/deploy-setup.yml
     with:
       dotns-domain: ${{ github.event_name == 'push' && 'claude-certificate26.dot' || format('{0}-{1}00.dot', github.event.repository.name, github.event.pull_request.head.ref) }}
-      artifact-name: frontend-build
+      #artifact-name: frontend-build
       skip-cache: ${{ inputs.skip-cache || false }}
     secrets:
       mnemonic: ${{ secrets.MNEMONIC || 'bottom drive obey lake curtain smoke basket hold race lonely fit walk' }}
