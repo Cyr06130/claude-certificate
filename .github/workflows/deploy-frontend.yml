@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - 'frontend/**'
   workflow_dispatch:
     inputs:
       skip-cache:
@@ -31,10 +33,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup node
-        uses: ./.github/actions/setup-node
+      # - name: Setup node
+      #   uses: ./.github/actions/setup-node
+      #   with:
+      #     NODEJS_VERSION: '22'
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          NODEJS_VERSION: '22'
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
 
       - name: Compute source hash
         id: source-hash
@@ -50,6 +62,7 @@ jobs:
       - name: Build app
         if: steps.cache-build.outputs.cache-hit != 'true'
         #run: yarn workspace @claude-certificate/frontend build
+        working-directory: frontend
         run: npm run build
 
       - name: Upload build artifact
