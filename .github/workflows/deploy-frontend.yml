@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - master
-    paths:
-      - 'frontend/**'
   workflow_dispatch:
     inputs:
       skip-cache:
@@ -20,6 +18,7 @@ permissions:
   contents: read
   statuses: write
   id-token: write
+  pull-requests: write
 
 concurrency:
   group: deploy-frontend-${{ github.event.pull_request.number || github.ref }}
@@ -75,7 +74,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy
-    uses: ./.github/workflows/deploy-setup.yml
+    uses: ./.github/workflows/deploy-to-triangle.yml
     with:
       dotns-domain: ${{ github.event_name == 'push' && 'claude-certificate26.dot' || format('{0}-{1}00.dot', github.event.repository.name, github.event.pull_request.head.ref) }}
       #artifact-name: frontend-build
