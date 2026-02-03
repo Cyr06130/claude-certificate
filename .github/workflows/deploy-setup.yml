@@ -1,4 +1,4 @@
-name: Deploy on Polkadot
+name: Deploy on Polkadot (old)
 
 on:
   workflow_call:
