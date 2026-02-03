@@ -1,4 +1,4 @@
-name: Deploy on Polkadot
+name: Deploy on Polkadot Triangle
 
 on:
   workflow_call:
